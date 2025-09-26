@@ -1,0 +1,38 @@
+
+nav {
+    padding: 1rem;
+}
+
+nav div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav .navbar-brand {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+    color: #333;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+nav li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+nav li a:hover {
+    color: #0077cc;
+}
+
