@@ -34,7 +34,7 @@ nav li a {
 }
 
 nav li a:hover {
-    color: #0077cc;
+    color: darkgreen;
 }
 
 /* Modal background */
@@ -86,7 +86,7 @@ nav li a:hover {
 }
 
 .modal-content button:hover {
-    background: #005fa3;
+    background: darkgreen;
 }
 
 /* Dropdown menu buttons */
@@ -104,7 +104,7 @@ nav li a:hover {
 
 .dropdown-menu button:hover {
     background: #f5f5f5;
-    color: #0077cc;
+    color: darkgreen;
 }
 
 .dropdown-trigger {
@@ -116,7 +116,7 @@ nav li a:hover {
 }
 
 .dropdown-trigger:hover {
-    color: #0077cc;
+    color: darkgreen;
 }
 
 .dropdown {
