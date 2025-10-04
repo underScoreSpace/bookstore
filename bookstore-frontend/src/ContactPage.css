@@ -1,0 +1,64 @@
+
+.contact-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: seagreen;
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+}
+
+.contact-page h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+.contact-page p {
+    margin-bottom: 2rem;
+    color: black;
+}
+
+.info-table {
+    background: seagreen;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-table div {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.info-table label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: black;
+}
+
+
+.info-table input,
+.info-table textarea {
+    padding: 0.75rem;
+    border: 1px solid white;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.info-table button {
+    align-self: center;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.info-table button:hover {
+    background-color: green;
+}

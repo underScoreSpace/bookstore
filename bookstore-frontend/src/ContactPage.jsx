@@ -1,11 +1,11 @@
-
+import "./ContactPage.css"
 
 export default function ContactPage() {
     return (
-        <div>
+        <div className="contact-page">
             <h2>Contact Us</h2>
             <p>Have a question?</p>
-                <form>
+                <form className="info-table">
                     <div>
                         <label>Name</label>
                         <input
