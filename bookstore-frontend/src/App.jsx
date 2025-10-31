@@ -4,6 +4,8 @@ import "./App.css";
 import HomePage from "./HomePage.jsx";
 import AboutPage from "./AboutPage.jsx";
 import ContactPage from "./ContactPage.jsx";
+import BookPage from "./BooksPage.jsx"
+
 
 export default function App() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -99,6 +101,7 @@ export default function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/books" element={<BookPage />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </main>
