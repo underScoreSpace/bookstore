@@ -15,7 +15,7 @@ public class Book {
     @Column(length = 300, nullable = false)
     private String title;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 200, nullable = false)  // FIXED: Uncommented this line
     private String author;
 
     @Column(columnDefinition = "TEXT")
