@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
-import "./BooksPage.css";
+
+import "./BooksPage.css"; 
+
+import { useCart } from "./App.jsx"; 
 
 export default function BooksPage() {
+    // Use the Cart context to access the addToCart function
+    const { addToCart } = useCart();
+    
     // State to store the list of books
     const [books, setBooks] = useState([]);
 
@@ -36,7 +42,8 @@ export default function BooksPage() {
 
             // Check if request was successful
             if (!response.ok) {
-                throw new Error("Failed to fetch books");
+                const errorText = await response.text(); 
+                throw new Error(errorText || "Failed to fetch books");
             }
 
             // Convert response to JSON
@@ -100,7 +107,8 @@ export default function BooksPage() {
                         <p className="author">by {book.author}</p>
                         <p className="description">{book.description}</p>
                         <div className="book-footer">
-                            <span className="price">${book.price}</span>
+                            {/* Price is formatted to two decimal places */}
+                            <span className="price">${book.price.toFixed(2)}</span> 
                             <span className="stock">
                                 {book.stockQty > 0
                                     ? `${book.stockQty} in stock`
@@ -110,6 +118,8 @@ export default function BooksPage() {
                         <button
                             className="add-to-cart"
                             disabled={book.stockQty === 0}
+                            // Calls the global addToCart function when clicked
+                            onClick={() => addToCart(book)} 
                         >
                             {book.stockQty > 0 ? "Add to Cart" : "Unavailable"}
                         </button>
