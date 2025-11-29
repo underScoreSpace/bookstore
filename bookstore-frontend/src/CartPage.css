@@ -162,7 +162,6 @@
 }
 
 .checkout-btn {
-    width: 100%;
     padding: 1rem;
     background: darkgreen;
     color: white;
@@ -181,8 +180,7 @@
 }
 
 .continue-shopping {
-    width: 100%;
-    padding: 0.85rem;
+    padding: 01rem;
     background: #6c757d;
     color: white;
     border: none;
@@ -198,6 +196,13 @@
 
 .continue-shopping:hover {
     background: #5a6268;
+}
+
+.checkout-btn,
+.continue-shopping {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
 }
 
 /* Responsive Design */

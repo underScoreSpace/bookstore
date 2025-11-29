@@ -8,7 +8,6 @@ nav {
 
 nav div {
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -27,6 +26,7 @@ nav ul {
     display: flex;
     gap: 2rem;
     justify-content: center;
+    flex: 1;
 }
 
 nav li a {
@@ -106,7 +106,7 @@ nav li a:hover {
 
 .dropdown-menu button:hover {
     background: #f5f5f5;
-    color: blue;
+    color: green;
 }
 
 .dropdown-trigger {
@@ -114,11 +114,12 @@ nav li a:hover {
     font-weight: 500;
     cursor: pointer;
     padding: 0.5rem 1rem;
-    padding-bottom: 1rem; /* Add extra padding at the bottom */
+    display: flex;
+    align-items: center;
 }
 
 .dropdown-trigger:hover {
-    color: blue;
+    color: green;
 }
 
 .dropdown {
