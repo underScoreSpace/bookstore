@@ -5,6 +5,7 @@ import HomePage from "./HomePage.jsx";
 import AboutPage from "./AboutPage.jsx";
 import ContactPage from "./ContactPage.jsx";
 import BookPage from "./BooksPage.jsx";
+import CartPage from "./CartPage.jsx";
 
 // Create Cart Context
 const CartContext = createContext();
@@ -156,9 +157,11 @@ export default function App() {
                             <li><Link to="/books">Books</Link></li>
                         </ul>
                         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                            <div style={{ fontWeight: 'bold' }}>
-                                Cart ({cartValue.cartCount})
-                            </div>
+                            <Link to="/cart" style={{ textDecoration: 'none' }}>
+                                <div style={{ fontWeight: 'bold', color: 'black', cursor: 'pointer' }}>
+                                    🛒 Cart ({cartValue.cartCount})
+                                </div>
+                            </Link>
                             <div className="dropdown"
                                  onMouseEnter={() => setIsDropdownOpen(true)}
                                  onMouseLeave={() => setIsDropdownOpen(false)}
@@ -181,6 +184,7 @@ export default function App() {
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/contact" element={<ContactPage />} />
                         <Route path="/books" element={<BookPage />} />
+                        <Route path="/cart" element={<CartPage />} />
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </main>
@@ -191,7 +195,7 @@ export default function App() {
                         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                             <h2>Sign In</h2>
                             <input type="text" placeholder="Enter your email or username" />
-                            <input type="text" placeholder="Enter your password" />
+                            <input type="password" placeholder="Enter your password" />
                             <button onClick={() => setActiveModal(null)}>Sign In</button>
                         </div>
                     </div>
