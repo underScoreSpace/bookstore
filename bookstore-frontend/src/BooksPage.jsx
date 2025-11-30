@@ -1,10 +1,12 @@
-  import { useState, useEffect } from "react";
-
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./BooksPage.css"; 
 
 import { useCart } from "./App.jsx"; 
 
 export default function BooksPage() {
+    const navigate = useNavigate();
+
     // Use the Cart context to access the addToCart function
     const { addToCart } = useCart();
     
@@ -102,7 +104,11 @@ export default function BooksPage() {
             {/* Books Grid */}
             <div className="books-grid">
                 {books.map((book) => (
-                    <div key={book.id} className="book-card">
+                    <div key={book.id}
+                         className="book-card"
+                         onClick={() => navigate(`/books/${book.id}`)}
+                         style={{ cursor: 'pointer' }}
+                    >
                         <h3>{book.title}</h3>
                         <p className="author">by {book.author}</p>
                         <p className="description">{book.description}</p>

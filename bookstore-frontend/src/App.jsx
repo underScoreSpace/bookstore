@@ -6,6 +6,7 @@ import AboutPage from "./AboutPage.jsx";
 import ContactPage from "./ContactPage.jsx";
 import BookPage from "./BooksPage.jsx";
 import CartPage from "./CartPage.jsx";
+import BookDetailPage from "./BookDetailPage.jsx";
 
 // Create Cart Context
 const CartContext = createContext();
@@ -184,6 +185,7 @@ export default function App() {
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/contact" element={<ContactPage />} />
                         <Route path="/books" element={<BookPage />} />
+                        <Route path="/books/:id" element={<BookDetailPage />} />
                         <Route path="/cart" element={<CartPage />} />
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
