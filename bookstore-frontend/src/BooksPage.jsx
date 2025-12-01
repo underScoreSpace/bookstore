@@ -125,7 +125,10 @@ export default function BooksPage() {
                             className="add-to-cart"
                             disabled={book.stockQty === 0}
                             // Calls the global addToCart function when clicked
-                            onClick={() => addToCart(book)} 
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                addToCart(book);
+                            }}
                         >
                             {book.stockQty > 0 ? "Add to Cart" : "Unavailable"}
                         </button>

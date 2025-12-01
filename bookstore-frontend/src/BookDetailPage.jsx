@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import {useCart} from "./App.jsx"
 import "./BookDetailPage.css";
 
 export default function BookDetailPage() {
@@ -9,6 +10,9 @@ export default function BookDetailPage() {
 
     // Allows us to back to the previous page
     const navigate = useNavigate();
+
+    // Allow user to add to cart
+    const { addToCart } = useCart();
 
     // State to store the book details
     const [book, setBook] = useState(null);
@@ -144,6 +148,7 @@ export default function BookDetailPage() {
                     <button
                         className="add-to-cart-btn"
                         disabled={book.stockQty === 0}
+                        onClick={() => addToCart(book)}
                     >
                         {book.stockQty > 0 ? "Add to Cart" : "Unavailable"}
                     </button>
