@@ -3,6 +3,7 @@ package com.bookstore.backend.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -39,5 +40,36 @@ public class UserController {
         users.save(user);
 
         return ResponseEntity.ok("Account created for " + user.getEmail());
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        if (request.getEmail() == null || request.getPassword() == null
+                || request.getEmail().isBlank() || request.getPassword().isBlank()) {
+            return ResponseEntity.badRequest().body("Email and password are required");
+        }
+
+        String email = request.getEmail().trim().toLowerCase();
+        Optional<User> optionalUser = users.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(401).body("Invalid email or password");
+        }
+
+        User user = optionalUser.get();
+
+        if (!encoder.matches(request.getPassword(), user.getPasswordHash())) {
+            return ResponseEntity.status(401).body("Invalid email or password");
+        }
+
+        LoginResponse response = new LoginResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getRole()
+        );
+
+        return ResponseEntity.ok(response);
     }
 }

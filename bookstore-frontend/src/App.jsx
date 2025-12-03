@@ -1,5 +1,5 @@
 import { Link, Routes, Route, Navigate } from "react-router-dom";
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import "./App.css";
 import HomePage from "./HomePage.jsx";
 import AboutPage from "./AboutPage.jsx";
@@ -21,11 +21,23 @@ export function useCart() {
 }
 
 export default function App() {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [activeModal, setActiveModal] = useState(null);
-    
+
     // Cart state
     const [cart, setCart] = useState([]);
+
+    // Logged-in user
+    const [currentUser, setCurrentUser] = useState(() => {
+        const saved = localStorage.getItem("currentUser");
+        return saved ? JSON.parse(saved) : null;
+    });
+
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: ""
+    });
+
+    const [loginMessage, setLoginMessage] = useState("");
 
     const [signupData, setSignupData] = useState({
         firstName: "",
@@ -36,54 +48,135 @@ export default function App() {
     });
     const [signupMessage, setSignupMessage] = useState("");
 
-    // Add to cart function
-    const addToCart = (book) => {
-        setCart((prevCart) => {
-            const existingItem = prevCart.find(item => item.id === book.id);
-            
-            if (existingItem) {
-                // If book already in cart, increase quantity
-                return prevCart.map(item =>
-                    item.id === book.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item
-                );
-            } else {
-                // Add new book to cart
-                return [...prevCart, { ...book, quantity: 1 }];
+    const mapBackendCart = (items) =>
+        items.map((item) => ({
+            id: item.bookId,
+            title: item.title,
+            author: item.author,
+            price: typeof item.price === "number" ? item.price : Number(item.price),
+            quantity: item.quantity,
+        }));
+
+    const loadCartFromBackend = async (userId) => {
+        try {
+            const res = await fetch(`http://localhost:8080/api/cart/${userId}`);
+            if (!res.ok) {
+                console.error("Failed to load cart for user", userId);
+                setCart([]);
+                return;
             }
-        });
-        
-        // Optional: Show a success message
-        alert(`${book.title} added to cart!`);
-    };
-
-    // Remove from cart function
-    const removeFromCart = (bookId) => {
-        setCart((prevCart) => prevCart.filter(item => item.id !== bookId));
-    };
-
-    // Update quantity function
-    const updateQuantity = (bookId, newQuantity) => {
-        if (newQuantity <= 0) {
-            removeFromCart(bookId);
-        } else {
-            setCart((prevCart) =>
-                prevCart.map(item =>
-                    item.id === bookId
-                        ? { ...item, quantity: newQuantity }
-                        : item
-                )
-            );
+            const backendItems = await res.json();
+            setCart(mapBackendCart(backendItems));
+        } catch (err) {
+            console.error("Error loading cart:", err);
+            setCart([]);
         }
     };
 
-    // Clear cart function
+    // When currentUser changes: load their cart, or clear if logged out
+    useEffect(() => {
+        if (currentUser && currentUser.id != null) {
+            loadCartFromBackend(currentUser.id);
+        } else {
+            setCart([]);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser]);
+
+    // ---- Cart functions ----
+
+    // Add to cart function
+    const addToCart = async (book) => {
+        if (!currentUser) {
+            setActiveModal("signin");
+            return;
+        }
+
+        try {
+            const res = await fetch("http://localhost:8080/api/cart/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: currentUser.id,
+                    bookId: book.id,
+                    quantity: 1,
+                }),
+            });
+
+            if (!res.ok) {
+                const msg = await res.text();
+                throw new Error(msg || "Failed to update cart");
+            }
+
+            const backendItems = await res.json();
+            setCart(mapBackendCart(backendItems));
+
+            alert(`${book.title} added to cart!`);
+        } catch (err) {
+            console.error("Error adding to cart:", err);
+            alert("Could not add to cart. Please try again.");
+        }
+    };
+
+    // Remove from cart
+    const removeFromCart = async (bookId) => {
+        if (!currentUser) return;
+
+        try {
+            const res = await fetch("http://localhost:8080/api/cart/update", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: currentUser.id,
+                    bookId: bookId,
+                    quantity: 0,
+                }),
+            });
+
+            if (!res.ok) {
+                const msg = await res.text();
+                throw new Error(msg || "Failed to update cart");
+            }
+
+            const backendItems = await res.json();
+            setCart(mapBackendCart(backendItems));
+        } catch (err) {
+            console.error("Error removing from cart:", err);
+        }
+    };
+
+    // Update quantity
+    const updateQuantity = async (bookId, newQuantity) => {
+        if (!currentUser) return;
+
+        try {
+            const res = await fetch("http://localhost:8080/api/cart/update", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userId: currentUser.id,
+                    bookId: bookId,
+                    quantity: newQuantity,
+                }),
+            });
+
+            if (!res.ok) {
+                const msg = await res.text();
+                throw new Error(msg || "Failed to update cart");
+            }
+
+            const backendItems = await res.json();
+            setCart(mapBackendCart(backendItems));
+        } catch (err) {
+            console.error("Error updating quantity:", err);
+        }
+    };
+
+    // Clear cart in UI when logging out
     const clearCart = () => {
         setCart([]);
     };
 
-    // Cart value to provide to children
     const cartValue = {
         cart,
         addToCart,
@@ -91,8 +184,13 @@ export default function App() {
         updateQuantity,
         clearCart,
         cartCount: cart.reduce((total, item) => total + item.quantity, 0),
-        cartTotal: cart.reduce((total, item) => total + (item.price * item.quantity), 0)
+        cartTotal: cart.reduce(
+            (total, item) => total + item.price * item.quantity,
+            0
+        ),
     };
+
+    // ---- Signup / Login handlers ----
 
     const handleSignupChange = (e) => {
         const { name, value } = e.target;
@@ -100,7 +198,8 @@ export default function App() {
     };
 
     const handleSignupSubmit = async () => {
-        const { firstName, lastName, email, password, confirmPassword } = signupData;
+        const { firstName, lastName, email, password, confirmPassword } =
+            signupData;
 
         if (!email || !password || !confirmPassword) {
             setSignupMessage("Please fill out all required fields.");
@@ -119,8 +218,8 @@ export default function App() {
                     firstName,
                     lastName,
                     email,
-                    passwordHash: password
-                })
+                    passwordHash: password,
+                }),
             });
 
             if (!res.ok) {
@@ -138,7 +237,7 @@ export default function App() {
                     lastName: "",
                     email: "",
                     password: "",
-                    confirmPassword: ""
+                    confirmPassword: "",
                 });
             }, 1500);
         } catch (err) {
@@ -146,35 +245,121 @@ export default function App() {
         }
     };
 
+    const handleLoginChange = (e) => {
+        const { name, value } = e.target;
+        setLoginData({ ...loginData, [name]: value });
+    };
+
+    const handleLoginSubmit = async () => {
+        const { email, password } = loginData;
+
+        if (!email || !password) {
+            setLoginMessage("Please enter your email and password.");
+            return;
+        }
+
+        try {
+            const res = await fetch("http://localhost:8080/api/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (!res.ok) {
+                const msg = await res.text();
+                throw new Error(msg || "Login failed");
+            }
+
+            const user = await res.json(); // LoginResponse from backend
+
+            setCurrentUser(user);
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            setLoginMessage("Logged in successfully!");
+
+            if (user.id != null) {
+                await loadCartFromBackend(user.id);
+            }
+
+            setTimeout(() => {
+                setActiveModal(null);
+                setLoginMessage("");
+                setLoginData({ email: "", password: "" });
+            }, 1000);
+        } catch (err) {
+            setLoginMessage(err.message);
+        }
+    };
+
+    const handleSignOut = () => {
+        setCurrentUser(null);
+        localStorage.removeItem("currentUser");
+        setCart([]);
+    };
+
     return (
         <CartContext.Provider value={cartValue}>
             <div>
                 <nav>
-                    <div>
-                        <Link className="navbar-brand" to="/">Bookstore</Link>
+                    <div className="nav-inner">
+                        <Link className="navbar-brand" to="/">
+                            Bookstore
+                        </Link>
+
                         <ul>
-                            <li><Link to="/about">About Us</Link></li>
-                            <li><Link to="/contact">Contact</Link></li>
-                            <li><Link to="/books">Books</Link></li>
+                            <li>
+                                <Link to="/about">About Us</Link>
+                            </li>
+                            <li>
+                                <Link to="/contact">Contact</Link>
+                            </li>
+                            <li>
+                                <Link to="/books">Books</Link>
+                            </li>
                         </ul>
-                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                            <Link to="/cart" style={{ textDecoration: 'none' }}>
-                                <div style={{ fontWeight: 'bold', color: 'black', cursor: 'pointer' }}>
+
+                        <div className="nav-right">
+                            <Link to="/cart" className="cart-link-wrapper">
+                                <div className="cart-link">
                                     🛒 Cart ({cartValue.cartCount})
                                 </div>
                             </Link>
-                            <div className="dropdown"
-                                 onMouseEnter={() => setIsDropdownOpen(true)}
-                                 onMouseLeave={() => setIsDropdownOpen(false)}
-                            >
-                                <span className="dropdown-trigger">My Account</span>
-                                {isDropdownOpen && (
-                                    <div className="dropdown-menu">
-                                        <button onClick={() => setActiveModal('signin')}>Sign In</button>
-                                        <button onClick={() => setActiveModal('signup')}>Create an Account</button>
-                                    </div>
-                                )}
-                            </div>
+
+                            {currentUser ? (
+                                <div className="auth-area">
+                                    <span className="user-greeting">
+                                        Hi,{" "}
+                                        {currentUser.firstName ||
+                                            currentUser.email}
+                                    </span>
+                                    <button
+                                        className="auth-button"
+                                        onClick={handleSignOut}
+                                    >
+                                        Sign Out
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="auth-area">
+                                    <button
+                                        className="auth-button"
+                                        onClick={() => {
+                                            setLoginMessage("");
+                                            setActiveModal("signin");
+                                        }}
+                                    >
+                                        Sign In
+                                    </button>
+                                    <button
+                                        className="auth-button"
+                                        onClick={() => {
+                                            setSignupMessage("");
+                                            setActiveModal("signup");
+                                        }}
+                                    >
+                                        Sign Up
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </nav>
@@ -185,28 +370,83 @@ export default function App() {
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/contact" element={<ContactPage />} />
                         <Route path="/books" element={<BookPage />} />
-                        <Route path="/books/:id" element={<BookDetailPage />} />
+                        <Route
+                            path="/books/:id"
+                            element={
+                                <BookDetailPage
+                                    openSignIn={() => setActiveModal("signin")}
+                                />
+                            }
+                        />
                         <Route path="/cart" element={<CartPage />} />
-                        <Route path="*" element={<Navigate to="/" replace />} />
+                        <Route
+                            path="*"
+                            element={<Navigate to="/" replace />}
+                        />
                     </Routes>
                 </main>
 
                 {/* Sign In Modal */}
-                {activeModal === 'signin' && (
-                    <div className="modal-overlay" onClick={() => setActiveModal(null)}>
-                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                {activeModal === "signin" && (
+                    <div
+                        className="modal-overlay"
+                        onClick={() => setActiveModal(null)}
+                    >
+                        <div
+                            className="modal-content"
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             <h2>Sign In</h2>
-                            <input type="text" placeholder="Enter your email or username" />
-                            <input type="password" placeholder="Enter your password" />
-                            <button onClick={() => setActiveModal(null)}>Sign In</button>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={loginData.email}
+                                onChange={handleLoginChange}
+                            />
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                value={loginData.password}
+                                onChange={handleLoginChange}
+                            />
+                            {loginMessage && (
+                                <p className="modal-message">
+                                    {loginMessage}
+                                </p>
+                            )}
+                            <button onClick={handleLoginSubmit}>
+                                Sign In
+                            </button>
+
+                            <p className="switch-text">
+                                Don&apos;t have an account?{" "}
+                                <button
+                                    type="button"
+                                    className="link-button"
+                                    onClick={() => {
+                                        setLoginMessage("");
+                                        setActiveModal("signup");
+                                    }}
+                                >
+                                    Create one
+                                </button>
+                            </p>
                         </div>
                     </div>
                 )}
 
                 {/* Sign Up Modal */}
                 {activeModal === "signup" && (
-                    <div className="modal-overlay" onClick={() => setActiveModal(null)}>
-                        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    <div
+                        className="modal-overlay"
+                        onClick={() => setActiveModal(null)}
+                    >
+                        <div
+                            className="modal-content"
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             <h2>Create an Account</h2>
                             <input
                                 type="text"
@@ -245,10 +485,28 @@ export default function App() {
                             />
 
                             {signupMessage && (
-                                <p style={{marginTop: "10px"}}>{signupMessage}</p>
+                                <p className="modal-message">
+                                    {signupMessage}
+                                </p>
                             )}
 
-                            <button onClick={handleSignupSubmit}>Create Account</button>
+                            <button onClick={handleSignupSubmit}>
+                                Create Account
+                            </button>
+
+                            <p className="switch-text">
+                                Already have an account?{" "}
+                                <button
+                                    type="button"
+                                    className="link-button"
+                                    onClick={() => {
+                                        setSignupMessage("");
+                                        setActiveModal("signin");
+                                    }}
+                                >
+                                    Sign in
+                                </button>
+                            </p>
                         </div>
                     </div>
                 )}

@@ -1,6 +1,7 @@
 body{
     background-color: seagreen;
 }
+
 nav {
     padding: 1rem;
     border-bottom: 1px black solid;
@@ -83,11 +84,7 @@ nav li a {
     font-size: 1rem;
 }
 
-.modal-content button:hover {
-    background: blue;
-}
 
-/* Dropdown menu buttons */
 .dropdown-menu button {
     width: 100%;
     background: none;
@@ -133,5 +130,63 @@ nav li a {
     min-width: 180px;
     margin-top: 0; /* Changed from 0.5rem to 0 */
     z-index: 1000;
+}
+
+
+.nav-inner {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart-link-wrapper {
+    text-decoration: none;
+}
+
+.cart-link {
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.auth-area {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.auth-button {
+    padding: 0.4rem 0.9rem;
+    border-radius: 4px;
+    border: 1px solid #004400;
+    background-color: white;
+    color: #004400;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.auth-button:hover {
+    background-color: #004400;
+    color: white;
+}
+
+.user-greeting {
+    font-size: 0.9rem;
+}
+
+
+.modal-message {
+    margin-top: 10px;
+}
+
+.switch-text {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
