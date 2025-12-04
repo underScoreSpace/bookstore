@@ -8,6 +8,7 @@ import BookPage from "./BooksPage.jsx";
 import CartPage from "./CartPage.jsx";
 import CheckoutPage from "./CheckoutPage.jsx";
 import BookDetailPage from "./BookDetailPage.jsx";
+import OrderConfirmation from "./OrderConfirmation";
 
 // Create Cart Context
 const CartContext = createContext();
@@ -371,6 +372,7 @@ export default function App() {
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/contact" element={<ContactPage />} />
                         <Route path="/books" element={<BookPage />} />
+                        <Route path="/order-confirmation" element={<OrderConfirmation />} />
                         <Route
                             path="/books/:id"
                             element={<BookDetailPage openSignIn={() => setActiveModal("signin")} />}

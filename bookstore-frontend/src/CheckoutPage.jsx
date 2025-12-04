@@ -72,6 +72,10 @@ export default function CheckoutPage({ openSignIn }) {
         }
 
         setLoading(true);
+
+        // snapshot of cart BEFORE clearing it so we can show it on confirmation page
+        const cartSnapshot = [...cart];
+
         try {
             const res = await fetch("http://localhost:8080/api/orders/checkout", {
                 method: "POST",
@@ -87,13 +91,27 @@ export default function CheckoutPage({ openSignIn }) {
                 throw new Error(msg || "Checkout failed");
             }
 
-            const data = await res.json(); // CheckoutResponse
+            const data = await res.json();
+
+
             clearCart();
-            setMessage(
-                `${data.message} Order #${data.orderNumber} • Total $${Number(
-                    data.total
-                ).toFixed(2)}`
-            );
+
+
+            navigate("/order-confirmation", {
+                state: {
+                    orderNumber: data.orderNumber,
+                    message: data.message,
+                    userEmail: currentUser.email,
+
+                    subtotal,
+                    tax,
+                    shipping,
+                    total,
+
+                    items: cartSnapshot,
+                    shippingInfo: form,
+                },
+            });
 
         } catch (err) {
             console.error(err);
@@ -102,6 +120,7 @@ export default function CheckoutPage({ openSignIn }) {
             setLoading(false);
         }
     };
+
 
     return (
 
