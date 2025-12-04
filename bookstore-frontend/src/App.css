@@ -190,3 +190,20 @@ nav li a {
     text-align: center;
 }
 
+.orders-link {
+    padding: 0.4rem 0.9rem;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid #004400;
+    background-color: white;
+    color: #004400;
+    cursor: pointer;
+    font-size: 0.9rem;
+
+}
+
+.orders-link:hover {
+    background-color: #004400;
+    color: white;
+}
+

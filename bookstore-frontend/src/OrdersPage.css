@@ -1,0 +1,132 @@
+.orders-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.orders-page h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: black;
+}
+
+
+.back-button {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: background 0.3s;
+}
+
+.back-button:hover {
+    background: #5a6268;
+}
+
+
+.order-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Order Header */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.8rem;
+}
+
+.order-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: darkgreen;
+}
+
+.order-meta {
+    text-align: right;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* Items List */
+.order-items {
+    margin-top: 1rem;
+    padding-left: 1rem;
+}
+
+.order-item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.order-item-details {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Empty State */
+.no-orders {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+.no-orders p {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.no-orders a {
+    padding: 0.75rem 1.5rem;
+    background: darkgreen;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.no-orders a:hover {
+    background: green;
+}
+
+@media (max-width: 768px) {
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .order-meta {
+        margin-top: 0.5rem;
+        text-align: left;
+    }
+}

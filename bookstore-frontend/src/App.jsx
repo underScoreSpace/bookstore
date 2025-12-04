@@ -9,6 +9,8 @@ import CartPage from "./CartPage.jsx";
 import CheckoutPage from "./CheckoutPage.jsx";
 import BookDetailPage from "./BookDetailPage.jsx";
 import OrderConfirmation from "./OrderConfirmation";
+import OrdersPage from "./OrdersPage.jsx";
+
 
 // Create Cart Context
 const CartContext = createContext();
@@ -326,13 +328,17 @@ export default function App() {
                                 </div>
                             </Link>
 
+                            {currentUser && (
+                                <Link to="/orders" className="orders-link">
+                                    Orders
+                                </Link>
+                            )}
+
                             {currentUser ? (
                                 <div className="auth-area">
-                                    <span className="user-greeting">
-                                        Hi,{" "}
-                                        {currentUser.firstName ||
-                                            currentUser.email}
-                                    </span>
+            <span className="user-greeting">
+                Hi, {currentUser.firstName || currentUser.email}
+            </span>
                                     <button
                                         className="auth-button"
                                         onClick={handleSignOut}
@@ -372,6 +378,7 @@ export default function App() {
                         <Route path="/about" element={<AboutPage />} />
                         <Route path="/contact" element={<ContactPage />} />
                         <Route path="/books" element={<BookPage />} />
+                        <Route path="/orders" element={<OrdersPage />} />
                         <Route path="/order-confirmation" element={<OrderConfirmation />} />
                         <Route
                             path="/books/:id"

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -44,6 +45,8 @@ public class OrderController {
         this.users = users;
         this.books = books;
     }
+
+
 
     @PostMapping("/checkout")
     @Transactional
@@ -149,4 +152,32 @@ public class OrderController {
         String random = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         return "ORD-" + random;
     }
+    @GetMapping("/history/{userId}")
+    public ResponseEntity<?> getOrderHistory(@PathVariable int userId) {
+
+        List<Order> userOrders = orders.findByUserIdOrderByPlacedAtDesc(userId);
+
+        List<OrderHistoryResponse> response = userOrders.stream().map(order -> {
+            List<OrderItemResponse> items = order.getItems().stream()
+                    .map(oi -> new OrderItemResponse(
+                            oi.getId(),
+                            oi.getBook().getTitle(),
+                            oi.getQuantity(),
+                            oi.getUnitPrice(),
+                            oi.getGrandTotal()
+                    ))
+                    .toList();
+
+            return new OrderHistoryResponse(
+                    order.getId(),
+                    order.getOrderNumber(),
+                    order.getTotal(),
+                    order.getPlacedAt(),
+                    items
+            );
+        }).toList();
+
+        return ResponseEntity.ok(response);
+    }
+
 }
