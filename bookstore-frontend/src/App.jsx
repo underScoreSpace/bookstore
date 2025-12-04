@@ -6,6 +6,7 @@ import AboutPage from "./AboutPage.jsx";
 import ContactPage from "./ContactPage.jsx";
 import BookPage from "./BooksPage.jsx";
 import CartPage from "./CartPage.jsx";
+import CheckoutPage from "./CheckoutPage.jsx";
 import BookDetailPage from "./BookDetailPage.jsx";
 
 // Create Cart Context
@@ -372,17 +373,17 @@ export default function App() {
                         <Route path="/books" element={<BookPage />} />
                         <Route
                             path="/books/:id"
-                            element={
-                                <BookDetailPage
-                                    openSignIn={() => setActiveModal("signin")}
-                                />
-                            }
+                            element={<BookDetailPage openSignIn={() => setActiveModal("signin")} />}
                         />
-                        <Route path="/cart" element={<CartPage />} />
                         <Route
-                            path="*"
-                            element={<Navigate to="/" replace />}
+                            path="/cart"
+                            element={<CartPage openSignIn={() => setActiveModal("signin")} />}
                         />
+                        <Route
+                            path="/checkout"
+                            element={<CheckoutPage openSignIn={() => setActiveModal("signin")} />}
+                        />
+                        <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </main>
 
