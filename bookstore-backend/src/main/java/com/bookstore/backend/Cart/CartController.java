@@ -32,7 +32,7 @@ public class CartController {
     }
 
     private Cart getOrCreateCartForUser(int userId) {
-        return carts.findByUserId(userId).orElseGet(() -> {
+        return carts.findByUser_Id(userId).orElseGet(() -> {
             User user = users.findById(userId)
                     .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
