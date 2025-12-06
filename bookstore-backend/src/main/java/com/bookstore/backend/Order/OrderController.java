@@ -59,7 +59,7 @@ public class OrderController {
         }
 
         // Get user's cart
-        Optional<Cart> cartOpt = carts.findByUserId(req.getUserId());
+        Optional<Cart> cartOpt = carts.findByUser_Id(req.getUserId());
         if (cartOpt.isEmpty() || cartOpt.get().getItems().isEmpty()) {
             return ResponseEntity.badRequest().body("Cart is empty");
         }
