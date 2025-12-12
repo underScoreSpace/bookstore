@@ -147,10 +147,10 @@
 }
 
 .book-cover {
-    width: 100%;           /* Fill the card width */
-    height: 250px;         /* Fixed height to keep grid uniform */
-    object-fit: contain;   /* Shows the whole image without cropping */
-    margin-bottom: 1rem;   /* Space between image and title */
-    background-color: #f9f9f9; /* Subtle background for transparent/loading images */
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    background-color: #f9f9f9;
     border-radius: 4px;
 }
