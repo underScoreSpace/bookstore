@@ -27,15 +27,18 @@ public class Book {
     @Column(name = "stock_qty", nullable = false)
     private Integer stockQty;
 
+    @Column(length = 20)
+    private String isbn;
 
     public Book() {}
 
-    public Book(String title, String author, String description, BigDecimal price, Integer stockQty) {
+    public Book(String title, String author, String description, BigDecimal price, Integer stockQty, String isbn) {
         this.title = title;
         this.author = author;
         this.description = description;
         this.price = price;
         this.stockQty = stockQty;
+        this.isbn = isbn;
     }
 
 
@@ -81,5 +84,13 @@ public class Book {
 
     public void setStockQty(Integer stockQty) {
         this.stockQty = stockQty;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 }
