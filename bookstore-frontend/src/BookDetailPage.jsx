@@ -150,6 +150,17 @@ export default function BookDetailPage() {
             </button>
 
             <div className="book-detail-container">
+                <div className="book-image-section">
+                    <img
+                        src={`https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg`}
+                        alt={book.title}
+                        className="detail-cover"
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = 'https://via.placeholder.com/300x450?text=No+Cover';
+                        }}
+                    />
+                </div>
                 <div className="book-info">
                     <h1>{book.title}</h1>
                     <h2 className="author">by {book.author}</h2>

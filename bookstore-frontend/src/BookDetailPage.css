@@ -31,6 +31,22 @@
     border-radius: 12px;
     margin-bottom: 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+}
+
+/* Book image section */
+.book-image-section{
+    flex-shrink: 0;
+}
+
+.detail-cover{
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 2);
+    object-fit: cover;
 }
 
 /* Book information section */
