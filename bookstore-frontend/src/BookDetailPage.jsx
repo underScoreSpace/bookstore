@@ -152,12 +152,12 @@ export default function BookDetailPage() {
             <div className="book-detail-container">
                 <div className="book-image-section">
                     <img
-                        src={`https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg`}
+                        src={`https://covers.openlibrary.org/b/isbn/${book.isbn.replace(/-/g, "")}-M.jpg`}
                         alt={book.title}
-                        className="detail-cover"
+                        className="book-cover"
                         onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = 'https://via.placeholder.com/300x450?text=No+Cover';
+                            e.target.src = "https://via.placeholder.com/150x220?text=No+Cover";
                         }}
                     />
                 </div>
