@@ -156,13 +156,13 @@ export default function BookDetailPage() {
 
                     <div className="rating-summary">
                         <div className="stars-display">
-                            {typeof averageRating === "string"
+                            {reviews.length === 0
                                 ? renderStars(0)
-                                : renderStars(Math.round(averageRating))}
+                                : renderStars(Math.floor(parseFloat(averageRating)))}
                         </div>
                         <span className="rating-text">
-                            {typeof averageRating === "string"
-                                ? averageRating
+                            {reviews.length === 0
+                                ? "No ratings yet"
                                 : `${averageRating} (${reviews.length} reviews)`}
                         </span>
                     </div>
