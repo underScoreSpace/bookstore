@@ -49,7 +49,8 @@ public class CartController {
                         item.getBook().getTitle(),
                         item.getBook().getAuthor(),
                         item.getBook().getPrice().doubleValue(),
-                        item.getQuantity()
+                        item.getQuantity(),
+                        item.getBook().getIsbn()
                 ))
                 .collect(Collectors.toList());
     }
