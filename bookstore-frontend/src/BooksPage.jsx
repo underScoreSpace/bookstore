@@ -109,6 +109,16 @@ export default function BooksPage() {
                          onClick={() => navigate(`/books/${book.id}`)}
                          style={{ cursor: 'pointer' }}
                     >
+                        <img
+                            src={`https://covers.openlibrary.org/b/isbn/${book.isbn}-M.jpg`}
+                            alt={book.title}
+                            className="book-cover"
+                            onError={(e) => {
+                                // Fallback image if Open Library doesn't have the cover
+                                e.target.onerror = null;
+                                e.target.src = 'https://via.placeholder.com/150x220?text=No+Cover';
+                            }}
+                        />
                         <h3>{book.title}</h3>
                         <p className="author">by {book.author}</p>
                         <p className="description">{book.description}</p>
