@@ -281,3 +281,16 @@
     border-radius: 6px;
     text-align: center;
 }
+
+/* Make it responsive for mobile phones */
+@media (max-width: 768px) {
+    .book-detail-container {
+        flex-direction: column; /* Stack them vertically on phone */
+        align-items: center;
+    }
+
+    .detail-cover {
+        width: 200px; /* Smaller image on mobile */
+        margin-bottom: 1.5rem;
+    }
+}

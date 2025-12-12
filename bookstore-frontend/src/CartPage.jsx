@@ -44,7 +44,7 @@ export default function CartPage({ openSignIn }) {
         }
         navigate("/checkout");
     };
-
+    console.log("Cart Items:", cart);
     return (
         <div className="cart-page">
             <h1>Shopping Cart</h1>
@@ -54,10 +54,19 @@ export default function CartPage({ openSignIn }) {
                 <div>
                     {cart.map((item) => (
                         <div key={item.id} className="cart-item">
-                            <div className="item-info">
-                                <h3>{item.title}</h3>
-                                <p className="author">by {item.author}</p>
-                                <p className="price">${item.price.toFixed(2)} each</p>
+                            <div className="cart-product-group">
+                                <img
+                                    src={`https://covers.openlibrary.org/b/isbn/${item.isbn}-M.jpg`}
+                                    alt={item.title}
+                                    className="cart-thumb"
+                                    onError={(e) => { e.target.src = 'https://via.placeholder.com/60x90?text=No+Cover'; }}
+                                />
+
+                                <div className="item-info">
+                                    <h3>{item.title}</h3>
+                                    <p className="author">by {item.author}</p>
+                                    <p className="price">${item.price.toFixed(2)} each</p>
+                                </div>
                             </div>
 
                             <div className="item-controls">

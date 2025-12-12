@@ -59,6 +59,7 @@ export default function App() {
             author: item.author,
             price: typeof item.price === "number" ? item.price : Number(item.price),
             quantity: item.quantity,
+            isbn: item.isbn,
         }));
 
     const loadCartFromBackend = async (userId) => {
