@@ -1,10 +1,36 @@
-body{
-    background-color: seagreen;
+/* --- App.css --- */
+
+/* 1. COLOR PALETTE */
+:root {
+    --bg-page: #F4F1EA;
+    --text-main: #3E3A36;
+    --text-muted: #6B625A;
+
+    --nav-bg: #3E5F50;
+    --nav-text: #F4F1EA;
+    --nav-hover: #C8A878;
+
+    --btn-primary: #5B8A72;
+    --btn-hover: #3E5F50;
+
+    --card-bg: #FFFFFF;
+    --border-color: #E0DED5;
 }
 
+/* 2. GLOBAL STYLES */
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: 'Georgia', serif; /* Serif fits this cozy theme well */
+    margin: 0;
+}
+
+/* 3. NAVBAR STYLING */
 nav {
-    padding: 1rem;
-    border-bottom: 1px black solid;
+    background-color: var(--nav-bg); /* Forest Green Background */
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 6px rgba(62, 58, 54, 0.1); /* Soft shadow */
+    border-bottom: none; /* Removed the harsh black border */
 }
 
 nav div {
@@ -14,196 +40,178 @@ nav div {
 
 nav .navbar-brand {
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0; /* Fixed alignment */
+    margin-right: 2rem;
     text-decoration: none;
-    color: black;
+    color: var(--nav-text); /* Light Beige */
 }
 
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
-
     display: flex;
     gap: 2rem;
-    justify-content: center;
+    align-items: center;
     flex: 1;
 }
 
 nav li a {
     text-decoration: none;
-    color: black;
+    color: var(--nav-text); /* Light Beige */
     font-weight: 500;
+    transition: color 0.2s ease;
 }
 
-/* Modal background */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+nav li a:hover {
+    color: var(--nav-hover); /* Gold on hover */
+}
+
+/* 4. AUTH & CART AREA */
+.nav-right {
     display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 2000;
+    gap: 1.5rem;
 }
 
-/* Modal box */
-.modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 400px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-.modal-content h2 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-}
-
-.modal-content input {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-}
-
-.modal-content button {
-    padding: 0.75rem 1.5rem;
-    background: darkgreen;
-    color: white;
-    border: none;
-    border-radius: 4px;
+.cart-link {
+    font-weight: bold;
+    color: var(--nav-text);
     cursor: pointer;
-    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
-
-.dropdown-menu button {
-    width: 100%;
-    background: none;
-    border: none;
-    text-align: left;
-    padding: 0.75rem 1rem;
-    color: black;
-    font-weight: 500;
-    cursor: pointer;
-    font-size: 1rem;
+.cart-link:hover {
+    color: var(--nav-hover);
 }
 
-.dropdown-menu button:hover {
-    background: #f5f5f5;
-    color: green;
+.auth-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-.dropdown-trigger {
-    color: black;
-    font-weight: 500;
-    cursor: pointer;
+/* Updated Auth Buttons (Sign In / Sign Up) */
+.auth-button {
     padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--nav-text); /* Light border */
+    background-color: transparent;
+    color: var(--nav-text);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.auth-button:hover {
+    background-color: var(--nav-text);
+    color: var(--nav-bg); /* Invert colors on hover */
+}
+
+/* 5. DROPDOWN MENU */
+.dropdown-trigger {
+    cursor: pointer;
     display: flex;
     align-items: center;
+    color: var(--nav-text);
 }
 
 .dropdown-trigger:hover {
-    color: green;
-}
-
-.dropdown {
-    position: relative;
+    color: var(--nav-hover);
 }
 
 .dropdown-menu {
     position: absolute;
     top: 100%;
     right: 0;
-    background: white;
-    border: 1px solid #ddd;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     min-width: 180px;
-    margin-top: 0; /* Changed from 0.5rem to 0 */
+    margin-top: 0.5rem;
     z-index: 1000;
+    padding: 0.5rem 0;
 }
 
+.dropdown-menu p {
+    margin: 0;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: background 0.2s;
+}
 
-.nav-inner {
+.dropdown-menu p:hover {
+    background-color: #f5f5f5;
+    color: var(--btn-primary);
+}
+
+/* 6. MODALS (Sign In / Sign Up Popups) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(62, 58, 54, 0.6); /* Darker brown overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    color: var(--text-main);
+}
+
+.modal-content h2 {
+    color: var(--nav-bg); /* Forest Green Header */
+    margin-top: 0;
+}
+
+.modal-content input {
     width: 100%;
-    justify-content: space-between;
+    padding: 0.8rem;
+    margin: 0.5rem 0 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
 }
 
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.cart-link-wrapper {
-    text-decoration: none;
-}
-
-.cart-link {
+.modal-content button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--btn-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
     font-weight: bold;
-    color: black;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
-.auth-area {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.modal-content button:hover {
+    background-color: var(--btn-hover);
 }
 
-.auth-button {
-    padding: 0.4rem 0.9rem;
-    border-radius: 4px;
-    border: 1px solid #004400;
-    background-color: white;
-    color: #004400;
+.link-button {
+    background: none !important;
+    border: none !important;
+    color: var(--btn-primary) !important;
+    text-decoration: underline;
     cursor: pointer;
-    font-size: 0.9rem;
+    padding: 0 !important;
+    width: auto !important;
+    font-weight: normal !important;
 }
 
-.auth-button:hover {
-    background-color: #004400;
-    color: white;
+.link-button:hover {
+    color: var(--btn-hover) !important;
 }
-
-.user-greeting {
-    font-size: 0.9rem;
-}
-
-
-.modal-message {
-    margin-top: 10px;
-}
-
-.switch-text {
-    margin-top: 12px;
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-.orders-link {
-    padding: 0.4rem 0.9rem;
-    text-decoration: none;
-    border-radius: 4px;
-    border: 1px solid #004400;
-    background-color: white;
-    color: #004400;
-    cursor: pointer;
-    font-size: 0.9rem;
-
-}
-
-.orders-link:hover {
-    background-color: #004400;
-    color: white;
-}
-
