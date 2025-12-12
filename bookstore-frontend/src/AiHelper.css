@@ -1,0 +1,43 @@
+.ai-helper {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.ai-input {
+    display: flex;
+    gap: 8px;
+}
+
+.ai-input input {
+    flex: 1;
+    padding: 8px;
+}
+
+.ai-input button {
+    background: darkgreen;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+}
+
+.ai-results {
+    margin-top: 12px;
+}
+
+.ai-book {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.ai-book button {
+    background: green;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+}

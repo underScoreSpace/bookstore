@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./BooksPage.css"; 
+import "./BooksPage.css";
+import AiHelper from "./AiHelper.jsx";
 
 import { useCart } from "./App.jsx"; 
 
@@ -73,7 +74,7 @@ export default function BooksPage() {
     return (
         <div className="books-page">
             <h1>Browse Our Books</h1>
-
+            <AiHelper />
             {/* Search Form */}
             <form className="search-form" onSubmit={handleSearch}>
                 <input
