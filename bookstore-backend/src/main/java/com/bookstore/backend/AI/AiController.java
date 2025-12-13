@@ -72,7 +72,7 @@ public class AiController {
 
         if (safePicks.size() < FALLBACK_LIMIT) {
             finalBooks = candidates.stream().limit(Math.min(FALLBACK_LIMIT, candidates.size())).toList();
-            explanation = askOllamaExplain(query, finalBooks); // your old behavior for explanation
+            explanation = askOllamaExplain(query, finalBooks);
         } else {
             finalBooks = safePicks.stream().map(p -> byId.get(p.id)).toList();
             explanation = buildNumberedExplanation(finalBooks, safePicks);
@@ -87,7 +87,7 @@ public class AiController {
         String q = query.toLowerCase();
 
         for (String word : q.split("\\s+")) {
-            if (word.length() < 2) continue;
+            if (word.length() < 4) continue;
 
             if (contains(book.getTitle(), word)) score += 20;
             if (contains(book.getDescription(), word)) score += 15;
@@ -117,7 +117,7 @@ User request:
 Candidates (you MUST choose ONLY from this list):
 %s
 
-Return VALID JSON ONLY in this exact format (no extra text, no markdown):
+Return VALID JSON ONLY in this exact format (NO EXTRA TEXT, NO MARKDOWN):
 {
   "selected": [
     {"id": 1, "reason": "why it matches"},
@@ -128,6 +128,12 @@ Return VALID JSON ONLY in this exact format (no extra text, no markdown):
 
 Rules:
 - Choose EXACTLY 3
+- Your reason MUST be original and high-level (skills/outcomes/use-case)
+- DO NOT quote the description
+- DO NOT paraphrase sentences from the description
+- DO NOT mention chapter-like details that appear in the description
+- Keep reasons 35 words each
+- Use user-centric language: "You'll learn...", "This helps if you want to..."
 - Each id must be one of the candidate IDs shown above
 - Do not invent books
 """.formatted(query, candidateList);
@@ -175,7 +181,6 @@ Rules:
         return sb.toString().trim();
     }
 
-    // --- Your old explainer behavior, slightly renamed ---
     private String askOllamaExplain(String query, List<Book> books) {
 
         String bookList = books.stream()
