@@ -47,7 +47,7 @@ header p {
 
 .browse-button:hover {
     background-color: var(--btn-hover);
-    transform: translateY(-3px); 
+    transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 

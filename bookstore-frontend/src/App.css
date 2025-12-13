@@ -204,8 +204,7 @@ nav li a:hover {
 .link-button {
     background: none !important;
     border: none !important;
-    color: var(--btn-primary) !important;
-    text-decoration: underline;
+    color: var(--btn-primary);
     cursor: pointer;
     padding: 0 !important;
     width: auto !important;
@@ -214,4 +213,31 @@ nav li a:hover {
 
 .link-button:hover {
     color: var(--btn-hover) !important;
+}
+
+.user-greeting{
+    color: var(--nav-text);
+}
+
+.orders-link,
+.orders-link:visited,
+.orders-link:hover,
+.orders-link:active,
+.orders-link:focus {
+    color: var(--nav-text);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.orders-link:hover {
+    color: var(--nav-hover);
+}
+
+nav a,
+nav a:visited,
+nav a:hover,
+nav a:active,
+nav a:focus {
+    text-decoration: none;
+    color: var(--nav-text);
 }
