@@ -7,7 +7,9 @@
 .books-page h1 {
     text-align: center;
     margin-bottom: 2rem;
-    color: Black;
+    font-family: 'Georgia', serif;
+    color: var(--nav-bg);
+    font-size: 2.5rem;
 }
 
 /* Search Form Styling */
@@ -15,46 +17,60 @@
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .search-form input {
     width: 400px;
     padding: 0.75rem;
     font-size: 1rem;
-    border: 2px solid #ddd;
-    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: white;
+    border-radius: 4px;
+    font-family: inherit;
+    color: var(--text-main);
+}
+
+.search-form input:focus {
+    outline: none;
+    border-color: var(--nav-bg);
+    box-shadow: 0 0 0 2px rgba(62, 95, 80, 0.1);
 }
 
 .search-form button {
     padding: 0.75rem 1.5rem;
-    background: darkgreen;
-    color: white;
+    background: var(--nav-bg);
+    color: var(--nav-text);
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
+    transition: background 0.2s ease;
+    font-family: inherit;
 }
 
 .search-form button:hover {
-    background: green;
+    background: var(--btn-hover);
+    transform: translateY(-1px);
 }
 
 /* Messages */
 .message {
     text-align: center;
     font-size: 1.2rem;
-    color: white;
+    color: var(--text-muted);
     margin: 2rem 0;
+    font-style: italic;
 }
 
 .error-message {
     text-align: center;
-    color: #ff4444;
-    background: #ffe0e0;
+    color: #721c24;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
     padding: 1rem;
-    border-radius: 6px;
+    border-radius: 4px;
     margin: 2rem auto;
     max-width: 600px;
 }
@@ -62,44 +78,67 @@
 /* Books Grid */
 .books-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
     margin-top: 2rem;
 }
 
 /* Individual Book Card */
 .book-card {
-    background: white;
+    background: var(--card-bg);
     padding: 1.5rem;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(62, 58, 54, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
 }
 
 .book-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(62, 58, 54, 0.15);
     cursor: pointer;
+    border-color: var(--nav-hover);
+}
+
+/* Book Cover */
+.book-cover {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    filter: contrast(0.95);
 }
 
 .book-card h3 {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    color: #333;
-    font-size: 1.3rem;
+    color: var(--text-main);
+    font-size: 1.25rem;
+    font-family: 'Georgia', serif;
+    line-height: 1.4;
 }
 
 .book-card .author {
-    color: #666;
+    color: var(--text-muted);
     font-style: italic;
     margin-bottom: 1rem;
+    font-size: 0.95rem;
 }
 
 .book-card .description {
-    color: #555;
-    line-height: 1.5;
-    margin-bottom: 1rem;
+    color: var(--text-main);
+    line-height: 1.6;
+    font-size: 0.9rem;
+    margin-bottom: auto;
     min-height: 60px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* Book Footer (Price & Stock) */
@@ -107,50 +146,48 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
 }
 
 .price {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    color: darkgreen;
+    color: var(--nav-bg);
 }
 
 .stock {
-    color: #666;
-    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    background-color: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 12px;
 }
 
 /* Add to Cart Button */
 .add-to-cart {
     width: 100%;
-    padding: 0.75rem;
-    background: forestgreen;
+    padding: 0.8rem;
+    background: var(--btn-primary);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    font-weight: 600;
-    transition: background 0.3s;
+    font-weight: bold;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
 }
 
 .add-to-cart:hover:not(:disabled) {
-    background: green;
+    background: var(--btn-hover);
+    transform: translateY(-1px);
 }
 
 .add-to-cart:disabled {
     background: #ccc;
     cursor: not-allowed;
-}
-
-.book-cover {
-    width: 100%;
-    height: 250px;
-    object-fit: contain;
-    margin-bottom: 1rem;
-    background-color: #f9f9f9;
-    border-radius: 4px;
+    opacity: 0.7;
 }

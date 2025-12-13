@@ -1,27 +1,34 @@
-
 .contact-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: seagreen;
-    font-family: Arial, sans-serif;
-    padding: 2rem;
 }
 
 .contact-page h2 {
-    font-size: 2rem;
-    margin-bottom: 1.0rem;
-    color: black;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--nav-bg);
+    font-family: 'Georgia', serif;
+    text-align: center;
 }
 
-
-
+/* The Form Container (acting as a Card) */
 .info-table {
-    background: seagreen;
+    background: var(--card-bg);
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(62, 58, 54, 0.08);
+    border: 1px solid var(--border-color);
+    width: 100%;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    box-sizing: border-box;
 }
 
 .info-table div {
@@ -29,33 +36,50 @@
     flex-direction: column;
 }
 
-
 .info-table label {
     margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: black;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.95rem;
 }
-
 
 .info-table input,
 .info-table textarea {
-    padding: 0.75rem;
-    border: 1px solid white;
-    border-radius: 6px;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    font-family: inherit;
+    transition: all 0.2s;
+    background-color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.info-table input:focus,
+.info-table textarea:focus {
+    outline: none;
+    border-color: var(--nav-bg);
+    box-shadow: 0 0 0 2px rgba(62, 95, 80, 0.1);
 }
 
 .info-table button {
-    align-self: center;
-    background-color: cornflowerblue;
+    margin-top: 1rem;
+    padding: 1rem 2.5rem;
+    background-color: var(--btn-primary);
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.2s;
+    align-self: flex-start;
+    width: 100%;
 }
 
 .info-table button:hover {
-    background-color: green;
+    background-color: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }

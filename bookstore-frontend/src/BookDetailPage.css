@@ -1,296 +1,305 @@
-/* Main container for the book detail page */
+/* Main Page Container */
 .book-detail-page {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    background-color: seagreen;
-    min-height: 100vh;
+    min-height: 80vh;
 }
 
-/* Back button styling */
+/* Back Button */
 .back-button {
-    background: darkgreen;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: 2rem;
-    transition: background 0.3s;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
 }
 
 .back-button:hover {
-    background: forestgreen;
-}
-
-/* Book details container */
-.book-detail-container {
     background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    gap: 2.5rem;
-    align-items: flex-start;
+    color: var(--nav-bg);
+    border-color: var(--nav-bg);
+    transform: translateX(-3px);
 }
 
-/* Book image section */
-.book-image-section{
-    flex-shrink: 0;
-}
-
-.detail-cover{
-    width: 300px;
-    height: auto;
+/* Book Details Card */
+.book-detail-container {
+    background: var(--card-bg);
+    padding: 3rem;
     border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 2);
-    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(62, 58, 54, 0.08);
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    border: 1px solid var(--border-color);
+    margin-bottom: 3rem;
 }
 
-/* Book information section */
+/* Image Section */
+.book-image-section {
+    flex-shrink: 0;
+    width: 300px;
+}
+
+.book-cover {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
+}
+
+/* Info Section (Updated class name) */
+.book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .book-info h1 {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    color: #333;
-    font-size: 2rem;
+    color: var(--nav-bg); /* Forest Green */
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
 }
 
 .book-info .author {
-    color: #666;
-    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-top: 0;
     margin-bottom: 1rem;
-    font-size: 1.3rem;
+    font-style: italic;
 }
 
-/* Rating summary section */
+/* Rating Summary */
 .rating-summary {
     display: flex;
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: #f9f9f9;
-    border-radius: 8px;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .stars-display {
-    font-size: 1.5rem;
-    color: gold;
+    color: #FFC107; /* Gold for stars */
+    font-size: 1.2rem;
+    letter-spacing: 2px;
 }
 
 .rating-text {
-    color: #666;
-    font-size: 1rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
 }
 
-/* Price section */
+/* Price Section (Updated class name) */
 .price-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: #f0f8f0;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
 .price {
     font-size: 2rem;
+    color: var(--nav-bg);
     font-weight: bold;
-    color: darkgreen;
 }
 
 .stock {
-    color: #666;
-    font-size: 1rem;
+    background-color: #f0f0f0;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
 }
 
-/* Description text */
+/* Description */
 .description {
-    color: #555;
     line-height: 1.8;
+    color: var(--text-main);
     margin-bottom: 2rem;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 }
 
-/* Add to cart button */
+/* Add to Cart Button */
 .add-to-cart-btn {
-    width: 100%;
-    padding: 1rem;
-    background: forestgreen;
+    padding: 1rem 2rem;
+    background-color: var(--btn-primary);
     color: white;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    border-radius: 4px;
     font-size: 1.1rem;
-    font-weight: 600;
-    transition: background 0.3s;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-start;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .add-to-cart-btn:hover:not(:disabled) {
-    background: green;
+    background-color: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .add-to-cart-btn:disabled {
-    background: #ccc;
+    background-color: #ccc;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
-/* Reviews Section */
+/* --- Reviews Section --- */
 .reviews-section {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .reviews-section h2 {
-    margin-top: 0;
-    color: #333;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 1rem;
+    color: var(--nav-bg);
+    font-family: 'Georgia', serif;
+    font-size: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
 }
 
-/* Review form styling */
+/* Review Form */
 .review-form {
-    background: #f9f9f9;
-    padding: 1.5rem;
+    background: white;
+    padding: 2rem;
     border-radius: 8px;
-    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    margin-bottom: 3rem;
 }
 
 .review-form h3 {
     margin-top: 0;
-    color: #333;
+    color: var(--text-main);
 }
 
-/* Rating input (clickable stars) */
 .rating-input {
     margin-bottom: 1rem;
-}
-
-.rating-input label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .stars-input {
-    font-size: 2rem;
+    display: flex;
     cursor: pointer;
 }
 
 .star-input {
+    font-size: 2rem;
     color: #ddd;
     transition: color 0.2s;
+    margin-right: 5px;
 }
 
 .star-input.filled {
-    color: gold;
+    color: #FFC107;
 }
 
-.star-input:hover {
-    color: gold;
-}
-
-/* Review textarea */
 .review-form textarea {
     width: 100%;
     padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-family: inherit;
-    resize: vertical;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
     margin-bottom: 1rem;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
     box-sizing: border-box;
 }
 
-/* Submit review button */
+.review-form textarea:focus {
+    outline: none;
+    border-color: var(--nav-bg);
+}
+
 .submit-review-btn {
-    background: darkgreen;
+    background: var(--nav-bg);
     color: white;
     border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 6px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
-    transition: background 0.3s;
+    transition: background 0.2s;
 }
 
-.submit-review-btn:hover {
-    background: green;
+.submit-review-btn:hover:not(:disabled) {
+    background: var(--btn-hover);
 }
 
-/* Reviews list */
+.submit-review-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Reviews List */
 .reviews-list {
-    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-/* Individual review card */
 .review-card {
-    background: #f9f9f9;
+    background: white;
     padding: 1.5rem;
     border-radius: 8px;
-    margin-bottom: 1rem;
-    border-left: 4px solid green;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--btn-primary);
 }
 
 .review-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .review-header strong {
-    color: #333;
+    color: var(--text-main);
     font-size: 1.1rem;
 }
 
 .review-stars {
-    color: gold;
-    font-size: 1rem;
-}
-
-.review-stars .star {
-    margin: 0 2px;
+    color: #FFC107;
+    letter-spacing: 2px;
 }
 
 .review-comment {
-    color: #555;
+    color: var(--text-muted);
     line-height: 1.6;
     margin: 0;
 }
 
-/* Star styling (for display) */
-.star {
-    color: gold;
-    font-size: 1.2rem;
-}
-
-/* Error message */
-.error {
-    color: #ff4444;
-    background: #ffe0e0;
-    padding: 1rem;
-    border-radius: 6px;
-    text-align: center;
-}
-
-/* Make it responsive for mobile phones */
+/* Responsive */
 @media (max-width: 768px) {
     .book-detail-container {
-        flex-direction: column; /* Stack them vertically on phone */
-        align-items: center;
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 2rem;
     }
 
-    .detail-cover {
-        width: 200px; /* Smaller image on mobile */
-        margin-bottom: 1.5rem;
+    .book-image-section {
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .add-to-cart-btn {
+        width: 100%;
     }
 }
